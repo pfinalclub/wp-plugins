@@ -778,11 +778,13 @@ label.mbti-option-card:has(input[type="radio"]:checked) {
 
 /* 验证告警样式 */
 .mbti-validation-warning {
-    margin: 20px 0;
-    padding: 0;
+    margin: 0 0 20px 0;
+    padding: 0 30px;
     background: transparent;
     border: none;
     animation: slideDown 0.3s ease-out;
+    position: relative;
+    z-index: 10;
 }
 
 .mbti-warning-content {

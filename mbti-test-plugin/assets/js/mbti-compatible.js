@@ -402,20 +402,15 @@
      * 显示验证警告
      */
     function showValidationWarning(message, jumpToQuestionIndex) {
-        console.log('🚨 showValidationWarning 被调用');
-        console.log('消息:', message);
-        console.log('跳转索引:', jumpToQuestionIndex);
-        
         // 隐藏现有通知
         hideNotification();
         
         // 移除现有的警告元素
         $('.mbti-validation-warning').remove();
-        console.log('已移除现有警告元素');
         
-        // 创建新的警告元素，添加强制显示样式
+        // 创建新的警告元素
         const $warning = $(`
-            <div class="mbti-validation-warning" style="display: block !important; visibility: visible !important; opacity: 1 !important;">
+            <div class="mbti-validation-warning">
                 <div class="mbti-warning-content">
                     <div class="mbti-warning-icon">⚠️</div>
                     <div class="mbti-warning-text">${message}</div>
@@ -424,31 +419,20 @@
             </div>
         `);
         
-        console.log('创建的警告元素:', $warning[0]);
-        
-        // 查找多个可能的插入位置
+        // 查找插入位置
         const $navigation = $('.mbti-navigation');
-        const $submitBtn = $('.mbti-submit-btn');
-        const $container = $('#mbti-test-form .mbti-questions-container, .mbti-test-container, .mbti-questions-container');
         const $form = $('#mbti-test-form');
-        
-        console.log('导航区域数量:', $navigation.length);
-        console.log('提交按钮数量:', $submitBtn.length);
-        console.log('容器数量:', $container.length);
-        console.log('表单数量:', $form.length);
         
         let inserted = false;
         
-        // 尝试插入到提交按钮前面
-        if ($submitBtn.length > 0) {
-            $submitBtn.before($warning);
-            console.log('✅ 警告已插入到提交按钮前面');
+        // 优先插入到导航区域前面（这样警告框会在所有按钮的上方）
+        if ($navigation.length > 0) {
+            $navigation.before($warning);
             inserted = true;
         }
-        // 尝试插入到导航区域前面
-        else if ($navigation.length > 0) {
-            $navigation.before($warning);
-            console.log('✅ 警告已插入到导航区域前面');
+        // 备选：插入到表单末尾
+        else if ($form.length > 0) {
+            $form.append($warning);
             inserted = true;
         }
         // 尝试插入到容器后面
