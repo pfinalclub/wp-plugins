@@ -471,3 +471,25 @@ msgstr ""
 
 msgid "果断、有领导力，善于规划和组织，追求成功。"
 msgstr ""
+
+# Missing Upgrade Banner Strings
+msgid "Unlock Premium Features"
+msgstr ""
+
+msgid "Get deeper insights with our professional analysis and personalized recommendations"
+msgstr ""
+
+msgid "Detailed personality analysis"
+msgstr ""
+
+msgid "Career recommendations"
+msgstr ""
+
+msgid "Relationship compatibility"
+msgstr ""
+
+msgid "Personal development tips"
+msgstr ""
+
+msgid "Upgrade Now"
+msgstr ""

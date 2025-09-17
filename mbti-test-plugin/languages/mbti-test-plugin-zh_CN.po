@@ -457,3 +457,25 @@ msgstr "统帅型"
 
 msgid "果断、有领导力，善于规划和组织，追求成功。"
 msgstr "果断、有领导力，善于规划和组织，追求成功。"
+
+# Missing Upgrade Banner Strings
+msgid "Unlock Premium Features"
+msgstr "解锁高级功能"
+
+msgid "Get deeper insights with our professional analysis and personalized recommendations"
+msgstr "通过我们的专业分析和个性化建议获得更深入的洞察"
+
+msgid "Detailed personality analysis"
+msgstr "详细的性格分析"
+
+msgid "Career recommendations"
+msgstr "职业建议"
+
+msgid "Relationship compatibility"
+msgstr "关系兼容性"
+
+msgid "Personal development tips"
+msgstr "个人发展建议"
+
+msgid "Upgrade Now"
+msgstr "立即升级"
