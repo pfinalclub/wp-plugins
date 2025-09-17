@@ -10,8 +10,8 @@
 function mbti_add_admin_menu() {
     // 添加主菜单
     add_menu_page(
-        __( 'MBTI Test Plugin', 'mbti-test' ),
-        __( 'MBTI Test', 'mbti-test' ),
+        esc_html__( 'MBTI Test Plugin', 'mbti-test-plugin' ),
+        esc_html__( 'MBTI Test', 'mbti-test-plugin' ),
         'manage_options',
         'mbti-test-plugin',
         'mbti_admin_dashboard',
@@ -22,8 +22,8 @@ function mbti_add_admin_menu() {
     // 添加子菜单
     add_submenu_page(
         'mbti-test-plugin',
-        __( 'Plugin Settings', 'mbti-test' ),
-        __( 'Settings', 'mbti-test' ),
+        esc_html__( 'Plugin Settings', 'mbti-test-plugin' ),
+        esc_html__( 'Settings', 'mbti-test-plugin' ),
         'manage_options',
         'mbti-settings',
         'mbti_settings_page'
@@ -31,8 +31,8 @@ function mbti_add_admin_menu() {
     
     add_submenu_page(
         'mbti-test-plugin',
-        __( 'Question Bank Management', 'mbti-test' ),
-        __( 'Question Management', 'mbti-test' ),
+        esc_html__( 'Question Bank Management', 'mbti-test-plugin' ),
+        esc_html__( 'Question Management', 'mbti-test-plugin' ),
         'manage_options',
         'mbti-questions',
         'mbti_questions_page'
@@ -48,38 +48,38 @@ add_action( 'admin_menu', 'mbti_add_admin_menu' );
 function mbti_admin_dashboard() {
     ?>
     <div class="wrap">
-        <h1><?php _e( 'MBTI Test Plugin Dashboard', 'mbti-test' ); ?></h1>
+        <h1><?php echo esc_html__( 'MBTI Test Plugin Dashboard', 'mbti-test-plugin' ); ?></h1>
         <div class="mbti-dashboard-stats">
             <div class="mbti-stat-card">
-                <div class="mbti-stat-title"><?php _e( 'Total Questions', 'mbti-test' ); ?></div>
-                <div class="mbti-stat-value"><?php echo mbti_get_total_questions(); ?></div>
+                <div class="mbti-stat-title"><?php echo esc_html__( 'Total Questions', 'mbti-test-plugin' ); ?></div>
+                <div class="mbti-stat-value"><?php echo esc_html( mbti_get_total_questions() ); ?></div>
             </div>
             <div class="mbti-stat-card">
-                <div class="mbti-stat-title"><?php _e( 'Total Tests', 'mbti-test' ); ?></div>
-                <div class="mbti-stat-value"><?php echo mbti_get_total_tests(); ?></div>
+                <div class="mbti-stat-title"><?php echo esc_html__( 'Total Tests', 'mbti-test-plugin' ); ?></div>
+                <div class="mbti-stat-value"><?php echo esc_html( mbti_get_total_tests() ); ?></div>
             </div>
         </div>
         
         <div class="mbti-dashboard-content">
             <div class="postbox">
-                <h3 class="hndle"><span><?php _e( 'Plugin Introduction', 'mbti-test' ); ?></span></h3>
+                <h3 class="hndle"><span><?php echo esc_html__( 'Plugin Introduction', 'mbti-test-plugin' ); ?></span></h3>
                 <div class="inside">
-                    <p><?php printf( __( 'MBTI test plugin is a fully functional personality test tool. You can embed tests in any page or article through the shortcode %s.', 'mbti-test' ), '<code>[mbti_test]</code>' ); ?></p>
-                    <p><?php _e( 'Main Features:', 'mbti-test' ); ?></p>
+                    <p><?php printf( esc_html__( 'MBTI test plugin is a fully functional personality test tool. You can embed tests in any page or article through the shortcode %s.', 'mbti-test-plugin' ), '<code>[mbti_test]</code>' ); ?></p>
+                    <p><?php echo esc_html__( 'Main Features:', 'mbti-test-plugin' ); ?></p>
                     <ul>
-                        <li><?php _e( 'Online MBTI test question bank', 'mbti-test' ); ?></li>
-                        <li><?php _e( 'Test result generation and display', 'mbti-test' ); ?></li>
-                        <li><?php _e( 'Support shortcode embedding', 'mbti-test' ); ?></li>
+                        <li><?php echo esc_html__( 'Online MBTI test question bank', 'mbti-test-plugin' ); ?></li>
+                        <li><?php echo esc_html__( 'Test result generation and display', 'mbti-test-plugin' ); ?></li>
+                        <li><?php echo esc_html__( 'Support shortcode embedding', 'mbti-test-plugin' ); ?></li>
                     </ul>
                 </div>
             </div>
             
             <div class="postbox">
-                <h3 class="hndle"><span><?php _e( 'Usage Guide', 'mbti-test' ); ?></span></h3>
+                <h3 class="hndle"><span><?php echo esc_html__( 'Usage Guide', 'mbti-test-plugin' ); ?></span></h3>
                 <div class="inside">
-                    <p><?php printf( __( '1. Add or edit test questions in the %s page', 'mbti-test' ), '<code>' . __( 'Question Management', 'mbti-test' ) . '</code>' ); ?></p>
-                    <p><?php printf( __( '2. Configure plugin options in the %s page', 'mbti-test' ), '<code>' . __( 'Settings', 'mbti-test' ) . '</code>' ); ?></p>
-                    <p><?php printf( __( '3. Use shortcode %s in pages or articles to embed tests', 'mbti-test' ), '<code>[mbti_test]</code>' ); ?></p>
+                    <p><?php printf( esc_html__( '1. Add or edit test questions in the %s page', 'mbti-test-plugin' ), '<code>' . esc_html__( 'Question Management', 'mbti-test-plugin' ) . '</code>' ); ?></p>
+                    <p><?php printf( esc_html__( '2. Configure plugin options in the %s page', 'mbti-test-plugin' ), '<code>' . esc_html__( 'Settings', 'mbti-test-plugin' ) . '</code>' ); ?></p>
+                    <p><?php printf( esc_html__( '3. Use shortcode %s in pages or articles to embed tests', 'mbti-test-plugin' ), '<code>[mbti_test]</code>' ); ?></p>
                 </div>
             </div>
         </div>
@@ -133,7 +133,7 @@ function mbti_settings_page() {
         
         update_option( 'mbti_plugin_settings', $settings );
         
-        echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Settings saved', 'mbti-test' ) . '</p></div>';
+        echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Settings saved', 'mbti-test-plugin' ) . '</p></div>';
     }
     
     // 获取当前设置
@@ -144,34 +144,34 @@ function mbti_settings_page() {
     
     ?>
     <div class="wrap">
-        <h1><?php _e( 'Plugin Settings', 'mbti-test' ); ?></h1>
+        <h1><?php echo esc_html__( 'Plugin Settings', 'mbti-test-plugin' ); ?></h1>
         <form method="post" action="">
             <?php wp_nonce_field( 'mbti_save_settings', 'mbti_settings_nonce' ); ?>
             
             <table class="form-table">
                 <tr>
-                    <th scope="row"><?php _e( 'Show Ads', 'mbti-test' ); ?></th>
+                    <th scope="row"><?php echo esc_html__( 'Show Ads', 'mbti-test-plugin' ); ?></th>
                     <td>
                         <input type="checkbox" name="mbti_show_ads" id="mbti_show_ads" value="1" <?php checked( $settings['show_ads'], 1 ); ?>>
-                        <label for="mbti_show_ads"><?php _e( 'Display ads on test results page', 'mbti-test' ); ?></label>
+                        <label for="mbti_show_ads"><?php echo esc_html__( 'Display ads on test results page', 'mbti-test-plugin' ); ?></label>
                     </td>
                 </tr>
                 
                 <tr>
-                    <th scope="row"><?php _e( 'Question Order', 'mbti-test' ); ?></th>
+                    <th scope="row"><?php echo esc_html__( 'Question Order', 'mbti-test-plugin' ); ?></th>
                     <td>
                         <select name="mbti_question_order" id="mbti_question_order">
-                            <option value="random" <?php selected( $settings['question_order'], 'random' ); ?>><?php _e( 'Random', 'mbti-test' ); ?></option>
-                            <option value="fixed" <?php selected( $settings['question_order'], 'fixed' ); ?>><?php _e( 'Fixed', 'mbti-test' ); ?></option>
+                            <option value="random" <?php selected( $settings['question_order'], 'random' ); ?>><?php echo esc_html__( 'Random', 'mbti-test-plugin' ); ?></option>
+                            <option value="fixed" <?php selected( $settings['question_order'], 'fixed' ); ?>><?php echo esc_html__( 'Fixed', 'mbti-test-plugin' ); ?></option>
                         </select>
                     </td>
                 </tr>
-                
-
             </table>
             
+
+            
             <p class="submit">
-                <input type="submit" name="mbti_save_settings" id="mbti_save_settings" class="button button-primary" value="<?php _e( 'Save Settings', 'mbti-test' ); ?>">
+                <input type="submit" name="mbti_save_settings" id="mbti_save_settings" class="button button-primary" value="<?php echo esc_attr__( 'Save Settings', 'mbti-test-plugin' ); ?>">
             </p>
         </form>
     </div>
@@ -230,7 +230,7 @@ function mbti_save_question() {
     // 由于当前使用JSON文件存储，这个功能会比较复杂
     // 这里只是简单的演示
     
-    echo '<div class="notice notice-success is-dismissible"><p>' . __( 'Question saved', 'mbti-test' ) . '</p></div>';
+    echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Question saved', 'mbti-test-plugin' ) . '</p></div>';
 }
 
 /**
@@ -255,33 +255,33 @@ function mbti_edit_question_form( $question_id ) {
     
     ?>
     <div class="wrap">
-        <h1><?php echo $question_id > 0 ? __( 'Edit Question', 'mbti-test' ) : __( 'Add Question', 'mbti-test' ); ?></h1>
+        <h1><?php echo $question_id > 0 ? esc_html__( 'Edit Question', 'mbti-test-plugin' ) : esc_html__( 'Add Question', 'mbti-test-plugin' ); ?></h1>
         <form method="post" action="">
             <?php wp_nonce_field( 'mbti_save_question', 'mbti_question_nonce' ); ?>
             <input type="hidden" name="question_id" value="<?php echo $question_id; ?>">
             
             <table class="form-table">
                 <tr>
-                    <th scope="row"><?php _e( 'Question Text', 'mbti-test' ); ?></th>
+                    <th scope="row"><?php echo esc_html__( 'Question Text', 'mbti-test-plugin' ); ?></th>
                     <td>
                         <textarea name="question_text" rows="4" class="regular-text" required></textarea>
                     </td>
                 </tr>
                 
                 <tr>
-                    <th scope="row"><?php _e( 'Question Type', 'mbti-test' ); ?></th>
+                    <th scope="row"><?php echo esc_html__( 'Question Type', 'mbti-test-plugin' ); ?></th>
                     <td>
                         <select name="question_type" required>
-                            <option value="EI"><?php _e( 'Extraversion (E) / Introversion (I)', 'mbti-test' ); ?></option>
-                            <option value="SN"><?php _e( 'Sensing (S) / Intuition (N)', 'mbti-test' ); ?></option>
-                            <option value="TF"><?php _e( 'Thinking (T) / Feeling (F)', 'mbti-test' ); ?></option>
-                            <option value="JP"><?php _e( 'Judging (J) / Perceiving (P)', 'mbti-test' ); ?></option>
+                            <option value="EI"><?php echo esc_html__( 'Extraversion (E) / Introversion (I)', 'mbti-test-plugin' ); ?></option>
+                            <option value="SN"><?php echo esc_html__( 'Sensing (S) / Intuition (N)', 'mbti-test-plugin' ); ?></option>
+                            <option value="TF"><?php echo esc_html__( 'Thinking (T) / Feeling (F)', 'mbti-test-plugin' ); ?></option>
+                            <option value="JP"><?php echo esc_html__( 'Judging (J) / Perceiving (P)', 'mbti-test-plugin' ); ?></option>
                         </select>
                     </td>
                 </tr>
                 
                 <tr>
-                    <th scope="row"><?php _e( 'Option 1', 'mbti-test' ); ?></th>
+                    <th scope="row"><?php echo esc_html__( 'Option 1', 'mbti-test-plugin' ); ?></th>
                     <td>
                         <input type="text" name="option1_text" class="regular-text" required>
                         <input type="hidden" name="option1_score" value="0">
@@ -289,7 +289,7 @@ function mbti_edit_question_form( $question_id ) {
                 </tr>
                 
                 <tr>
-                    <th scope="row"><?php _e( 'Option 2', 'mbti-test' ); ?></th>
+                    <th scope="row"><?php echo esc_html__( 'Option 2', 'mbti-test-plugin' ); ?></th>
                     <td>
                         <input type="text" name="option2_text" class="regular-text" required>
                         <input type="hidden" name="option2_score" value="1">
@@ -298,8 +298,8 @@ function mbti_edit_question_form( $question_id ) {
             </table>
             
             <p class="submit">
-                <input type="submit" name="mbti_save_question" class="button button-primary" value="<?php _e( 'Save Question', 'mbti-test' ); ?>">
-                <a href="<?php echo admin_url( 'admin.php?page=mbti-questions' ); ?>" class="button"><?php _e( 'Cancel', 'mbti-test' ); ?></a>
+                <input type="submit" name="mbti_save_question" class="button button-primary" value="<?php echo esc_attr__( 'Save Question', 'mbti-test-plugin' ); ?>">
+                <a href="<?php echo esc_url( admin_url( 'admin.php?page=mbti-questions' ) ); ?>" class="button"><?php echo esc_html__( 'Cancel', 'mbti-test-plugin' ); ?></a>
             </p>
         </form>
     </div>
@@ -321,34 +321,34 @@ function mbti_list_questions() {
     
     ?>
     <div class="wrap">
-        <h1><?php _e( 'Question Bank Management', 'mbti-test' ); ?></h1>
-        <a href="<?php echo admin_url( 'admin.php?page=mbti-questions&action=add' ); ?>" class="button button-primary" style="margin-bottom: 15px;"><?php _e( 'Add Question', 'mbti-test' ); ?></a>
+        <h1><?php echo esc_html__( 'Question Bank Management', 'mbti-test-plugin' ); ?></h1>
+        <a href="<?php echo esc_url( admin_url( 'admin.php?page=mbti-questions&action=add' ) ); ?>" class="button button-primary" style="margin-bottom: 15px;"><?php echo esc_html__( 'Add Question', 'mbti-test-plugin' ); ?></a>
         
         <table class="wp-list-table widefat fixed striped">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th><?php _e( 'Question Text', 'mbti-test' ); ?></th>
-                    <th><?php _e( 'Type', 'mbti-test' ); ?></th>
-                    <th><?php _e( 'Actions', 'mbti-test' ); ?></th>
+                    <th><?php echo esc_html__( 'Question Text', 'mbti-test-plugin' ); ?></th>
+                    <th><?php echo esc_html__( 'Type', 'mbti-test-plugin' ); ?></th>
+                    <th><?php echo esc_html__( 'Actions', 'mbti-test-plugin' ); ?></th>
                 </tr>
             </thead>
             <tbody>
                 <?php if ( $questions && isset( $questions['questions'] ) && ! empty( $questions['questions'] ) ) : ?>
                     <?php foreach ( $questions['questions'] as $question ) : ?>
                     <tr>
-                        <td><?php echo $question['id']; ?></td>
-                        <td><?php echo $question['text']; ?></td>
-                        <td><?php echo $question['type']; ?></td>
+                        <td><?php echo esc_html( $question['id'] ); ?></td>
+                        <td><?php echo esc_html( $question['text'] ); ?></td>
+                        <td><?php echo esc_html( $question['type'] ); ?></td>
                         <td>
-                            <a href="<?php echo admin_url( 'admin.php?page=mbti-questions&action=edit&question_id=' . $question['id'] ); ?>"><?php _e( 'Edit', 'mbti-test' ); ?></a> | 
-                            <a href="<?php echo admin_url( 'admin.php?page=mbti-questions&action=delete&question_id=' . $question['id'] ); ?>" onclick="return confirm('<?php _e( 'Are you sure you want to delete this question?', 'mbti-test' ); ?>');"><?php _e( 'Delete', 'mbti-test' ); ?></a>
+                            <a href="<?php echo esc_url( admin_url( 'admin.php?page=mbti-questions&action=edit&question_id=' . $question['id'] ) ); ?>"><?php echo esc_html__( 'Edit', 'mbti-test-plugin' ); ?></a> | 
+                            <a href="<?php echo esc_url( admin_url( 'admin.php?page=mbti-questions&action=delete&question_id=' . $question['id'] ) ); ?>" onclick="return confirm('<?php echo esc_js( __( 'Are you sure you want to delete this question?', 'mbti-test-plugin' ) ); ?>');"><?php echo esc_html__( 'Delete', 'mbti-test-plugin' ); ?></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="4" style="text-align: center;"><?php _e( 'No questions', 'mbti-test' ); ?></td>
+                        <td colspan="4" style="text-align: center;"><?php echo esc_html__( 'No questions', 'mbti-test-plugin' ); ?></td>
                     </tr>
                 <?php endif; ?>
             </tbody>

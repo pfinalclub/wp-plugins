@@ -8,7 +8,7 @@
  * Author URI: https://member.friday-go.icu
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: mbti-test
+ * Text Domain: mbti-test-plugin
  * Domain Path: /languages
  */
 
@@ -23,31 +23,22 @@ define( 'MBTI_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MBTI_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 /**
+ * 加载插件文本域
+ * 必须在 init 钩子中调用，符合 WordPress 官方标准
+ */
+function mbti_load_textdomain() {
+    load_plugin_textdomain( 
+        'mbti-test-plugin', 
+        false, 
+        dirname( plugin_basename( __FILE__ ) ) . '/languages' 
+    );
+}
+add_action( 'init', 'mbti_load_textdomain' );
+
+/**
  * 插件初始化
  */
 function mbti_plugin_init() {
-    // 加载插件文本域，自动跟随WordPress语言设置
-   // 加载语言文件
-// 先尝试从WordPress全局语言目录加载
-$current_locale = get_locale();
-$global_language_file = WP_CONTENT_DIR . '/languages/plugins/mbti-test-' . $current_locale . '.mo';
-
-if ( file_exists( $global_language_file ) ) {
-    // 先移除可能已加载的文本域
-    unload_textdomain( 'mbti-test' );
-    // 加载当前语言的文件
-    load_textdomain( 'mbti-test', $global_language_file );
-} else {
-    // 如果没有当前语言的文件，尝试加载英文作为默认
-    $en_language_file = WP_CONTENT_DIR . '/languages/plugins/mbti-test-en_US.mo';
-    if ( file_exists( $en_language_file ) ) {
-        unload_textdomain( 'mbti-test' );
-        load_textdomain( 'mbti-test', $en_language_file );
-    }
-}
-
-// 最后尝试从插件目录加载作为后备
-load_plugin_textdomain( 'mbti-test', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
     
 /**
@@ -80,23 +71,38 @@ function mbti_get_current_language() {
 /**
  * 获取翻译后的文本
  */
-function mbti_translate( $text, $domain = 'mbti-test' ) {
-    return __( $text, $domain );
+function mbti_translate( $text, $domain = 'mbti-test-plugin' ) {
+    return esc_html__( $text, $domain );
 }
 
 /**
  * 输出翻译后的文本
  */
-function mbti_e( $text, $domain = 'mbti-test' ) {
-    _e( $text, $domain );
+function mbti_e( $text, $domain = 'mbti-test-plugin' ) {
+    echo esc_html__( $text, $domain );
 }
 
 /**
  * 获取本地化的题目数据
  */
 function mbti_get_localized_questions() {
-    // 读取基础题库
-    $questions_file = MBTI_PLUGIN_DIR . 'data/basic_questions.json';
+    // 获取当前语言环境
+    $current_locale = get_locale();
+    
+    // 根据语言环境选择题库文件
+    if ( strpos( $current_locale, 'zh' ) === 0 ) {
+        // 中文环境使用中文题库
+        $questions_file = MBTI_PLUGIN_DIR . 'data/basic_questions.json';
+    } else {
+        // 其他语言环境使用英文题库
+        $questions_file = MBTI_PLUGIN_DIR . 'data/basic_questions_en.json';
+        
+        // 如果英文题库不存在，回退到中文题库并进行翻译
+        if ( ! file_exists( $questions_file ) ) {
+            $questions_file = MBTI_PLUGIN_DIR . 'data/basic_questions.json';
+        }
+    }
+    
     if ( ! file_exists( $questions_file ) ) {
         return false;
     }
@@ -108,26 +114,29 @@ function mbti_get_localized_questions() {
         return false;
     }
     
-    // 对题目文本进行翻译
-    foreach ( $questions['questions'] as &$question ) {
-        // 翻译题目文本
-        $question['text'] = mbti_translate( $question['text'] );
+    // 如果使用的是中文题库但当前环境不是中文，需要进行翻译
+    if ( basename( $questions_file ) === 'basic_questions.json' && strpos( $current_locale, 'zh' ) !== 0 ) {
+        // 对题目文本进行翻译
+        foreach ( $questions['questions'] as &$question ) {
+            // 翻译题目文本
+            $question['text'] = esc_html__( $question['text'], 'mbti-test-plugin' );
+            
+            // 翻译选项文本
+            foreach ( $question['options'] as &$option ) {
+                $option['text'] = esc_html__( $option['text'], 'mbti-test-plugin' );
+            }
+            unset( $option );
+        }
+        unset( $question );
         
-        // 翻译选项文本
-        foreach ( $question['options'] as &$option ) {
-            $option['text'] = mbti_translate( $option['text'] );
+        // 对性格类型进行翻译
+        if ( isset( $questions['results'] ) ) {
+            foreach ( $questions['results'] as &$type ) {
+                $type['name'] = esc_html__( $type['name'], 'mbti-test-plugin' );
+                $type['description'] = esc_html__( $type['description'], 'mbti-test-plugin' );
+            }
+            unset( $type );
         }
-        unset( $option );
-    }
-    unset( $question );
-    
-    // 对性格类型进行翻译
-    if ( isset( $questions['types'] ) ) {
-        foreach ( $questions['types'] as &$type ) {
-            $type['name'] = mbti_translate( $type['name'] );
-            $type['description'] = mbti_translate( $type['description'] );
-        }
-        unset( $type );
     }
     
     return $questions;

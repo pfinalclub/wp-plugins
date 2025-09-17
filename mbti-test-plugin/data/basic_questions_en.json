@@ -1,0 +1,214 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "text": "You tend to be more:",
+      "type": "EI",
+      "options": [
+        { "id": 1, "text": "Extraverted (E): Enjoy social activities and gain energy from interacting with others", "score": 0 },
+        { "id": 2, "text": "Introverted (I): Prefer solitude or small group interactions and gain energy from self-reflection", "score": 1 }
+      ]
+    },
+    {
+      "id": 2,
+      "text": "Your way of gathering information tends to be:",
+      "type": "SN",
+      "options": [
+        { "id": 1, "text": "Sensing (S): Focus on realistic, concrete information and details", "score": 0 },
+        { "id": 2, "text": "Intuition (N): Focus on abstract possibilities and overall patterns", "score": 1 }
+      ]
+    },
+    {
+      "id": 3,
+      "text": "When making decisions, you value more:",
+      "type": "TF",
+      "options": [
+        { "id": 1, "text": "Thinking (T): Logical, objective and fair analysis", "score": 0 },
+        { "id": 2, "text": "Feeling (F): Personal values, relationships and emotional factors", "score": 1 }
+      ]
+    },
+    {
+      "id": 4,
+      "text": "Your lifestyle preference is:",
+      "type": "JP",
+      "options": [
+        { "id": 1, "text": "Judging (J): Prefer structure, planning and decisive action", "score": 0 },
+        { "id": 2, "text": "Perceiving (P): Prefer flexibility, spontaneity and keeping options open", "score": 1 }
+      ]
+    },
+    {
+      "id": 5,
+      "text": "At parties, you usually:",
+      "type": "EI",
+      "options": [
+        { "id": 1, "text": "Actively interact with many people and enjoy being the center of attention", "score": 0 },
+        { "id": 2, "text": "Talk with a few close friends or prefer to observe quietly", "score": 1 }
+      ]
+    },
+    {
+      "id": 6,
+      "text": "When learning new things, you prefer:",
+      "type": "SN",
+      "options": [
+        { "id": 1, "text": "Step-by-step learning with clear examples and practical applications", "score": 0 },
+        { "id": 2, "text": "Understanding the big picture first, then exploring possibilities and connections", "score": 1 }
+      ]
+    },
+    {
+      "id": 7,
+      "text": "When facing conflicts, you tend to:",
+      "type": "TF",
+      "options": [
+        { "id": 1, "text": "Analyze the situation objectively and seek logical solutions", "score": 0 },
+        { "id": 2, "text": "Consider everyone's feelings and seek harmonious solutions", "score": 1 }
+      ]
+    },
+    {
+      "id": 8,
+      "text": "Your work style is more:",
+      "type": "JP",
+      "options": [
+        { "id": 1, "text": "Make detailed plans and follow schedules strictly", "score": 0 },
+        { "id": 2, "text": "Adapt flexibly and handle things as they come", "score": 1 }
+      ]
+    },
+    {
+      "id": 9,
+      "text": "You feel more energized when:",
+      "type": "EI",
+      "options": [
+        { "id": 1, "text": "Participating in group activities and discussions", "score": 0 },
+        { "id": 2, "text": "Having quiet time alone to think and reflect", "score": 1 }
+      ]
+    },
+    {
+      "id": 10,
+      "text": "When solving problems, you rely more on:",
+      "type": "SN",
+      "options": [
+        { "id": 1, "text": "Past experience and proven methods", "score": 0 },
+        { "id": 2, "text": "Innovation and exploring new possibilities", "score": 1 }
+      ]
+    },
+    {
+      "id": 11,
+      "text": "You make important decisions based more on:",
+      "type": "TF",
+      "options": [
+        { "id": 1, "text": "Rational analysis and objective criteria", "score": 0 },
+        { "id": 2, "text": "Personal values and impact on people", "score": 1 }
+      ]
+    },
+    {
+      "id": 12,
+      "text": "You prefer your living environment to be:",
+      "type": "JP",
+      "options": [
+        { "id": 1, "text": "Organized, tidy with everything in its place", "score": 0 },
+        { "id": 2, "text": "Flexible, casual and adaptable to changes", "score": 1 }
+      ]
+    },
+    {
+      "id": 13,
+      "text": "In conversations, you tend to:",
+      "type": "EI",
+      "options": [
+        { "id": 1, "text": "Think out loud and share ideas as they come", "score": 0 },
+        { "id": 2, "text": "Think carefully before speaking and prefer listening", "score": 1 }
+      ]
+    },
+    {
+      "id": 14,
+      "text": "You pay more attention to:",
+      "type": "SN",
+      "options": [
+        { "id": 1, "text": "Facts, details and what actually happened", "score": 0 },
+        { "id": 2, "text": "Meanings, implications and what could be possible", "score": 1 }
+      ]
+    },
+    {
+      "id": 15,
+      "text": "When giving feedback, you focus more on:",
+      "type": "TF",
+      "options": [
+        { "id": 1, "text": "Being honest and direct about what needs improvement", "score": 0 },
+        { "id": 2, "text": "Being tactful and considering the person's feelings", "score": 1 }
+      ]
+    },
+    {
+      "id": 16,
+      "text": "You handle deadlines by:",
+      "type": "JP",
+      "options": [
+        { "id": 1, "text": "Starting early and working steadily toward completion", "score": 0 },
+        { "id": 2, "text": "Working best under pressure and finishing just in time", "score": 1 }
+      ]
+    }
+  ],
+  "results": {
+    "INTJ": {
+      "name": "The Architect",
+      "description": "Imaginative and strategic thinkers, with a plan for everything. INTJs are independent, decisive, and have strong convictions. They see the big picture and are natural leaders in implementing their vision."
+    },
+    "INTP": {
+      "name": "The Thinker", 
+      "description": "Innovative inventors with an unquenchable thirst for knowledge. INTPs are logical, analytical, and objective. They love theoretical concepts and abstract thinking."
+    },
+    "ENTJ": {
+      "name": "The Commander",
+      "description": "Bold, imaginative and strong-willed leaders, always finding a way or making one. ENTJs are natural-born leaders who are confident, assertive, and strategic in their approach."
+    },
+    "ENTP": {
+      "name": "The Debater",
+      "description": "Smart and curious thinkers who cannot resist an intellectual challenge. ENTPs are innovative, enthusiastic, and love exploring new ideas and possibilities."
+    },
+    "INFJ": {
+      "name": "The Advocate",
+      "description": "Quiet and mystical, yet very inspiring and tireless idealists. INFJs are creative, insightful, and principled. They have a strong sense of purpose and integrity."
+    },
+    "INFP": {
+      "name": "The Mediator",
+      "description": "Poetic, kind and altruistic people, always eager to help a good cause. INFPs are idealistic, loyal, and adaptable. They value harmony and authenticity."
+    },
+    "ENFJ": {
+      "name": "The Protagonist", 
+      "description": "Charismatic and inspiring leaders, able to mesmerize their listeners. ENFJs are warm, empathetic, and responsible. They are natural teachers and mentors."
+    },
+    "ENFP": {
+      "name": "The Campaigner",
+      "description": "Enthusiastic, creative and sociable free spirits, who can always find a reason to smile. ENFPs are energetic, optimistic, and love connecting with people."
+    },
+    "ISTJ": {
+      "name": "The Logistician",
+      "description": "Practical and fact-minded, reliable and responsible. ISTJs are organized, hardworking, and traditional. They value stability and have a strong sense of duty."
+    },
+    "ISFJ": {
+      "name": "The Protector",
+      "description": "Very dedicated and warm protectors, always ready to defend their loved ones. ISFJs are caring, loyal, and conscientious. They have a strong desire to serve others."
+    },
+    "ESTJ": {
+      "name": "The Executive",
+      "description": "Excellent administrators, unsurpassed at managing things or people. ESTJs are organized, practical, and decisive. They are natural leaders who value tradition and order."
+    },
+    "ESFJ": {
+      "name": "The Consul",
+      "description": "Extraordinarily caring, social and popular people, always eager to help. ESFJs are warm, cooperative, and responsible. They value harmony and helping others."
+    },
+    "ISTP": {
+      "name": "The Virtuoso",
+      "description": "Bold and practical experimenters, masters of all kinds of tools. ISTPs are adaptable, logical, and hands-on. They love understanding how things work."
+    },
+    "ISFP": {
+      "name": "The Adventurer", 
+      "description": "Flexible and charming artists, always ready to explore new possibilities. ISFPs are gentle, caring, and artistic. They value personal freedom and authenticity."
+    },
+    "ESTP": {
+      "name": "The Entrepreneur",
+      "description": "Smart, energetic and very perceptive people, truly enjoy living on the edge. ESTPs are spontaneous, pragmatic, and love action. They are natural problem-solvers."
+    },
+    "ESFP": {
+      "name": "The Entertainer",
+      "description": "Spontaneous, energetic and enthusiastic people - life is never boring around them. ESFPs are friendly, outgoing, and love being around people. They bring joy and excitement to others."
+    }
+  }
+}

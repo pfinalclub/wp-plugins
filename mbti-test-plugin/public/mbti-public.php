@@ -8,11 +8,24 @@
  * 渲染基础版MBTI测试
  */
 function mbti_render_basic_test( $atts ) {
+    // 加载前端样式和脚本
+    wp_enqueue_style( 'mbti-frontend-styles', MBTI_PLUGIN_URL . 'assets/css/mbti-frontend.css', array(), MBTI_PLUGIN_VERSION );
+    wp_enqueue_script( 'jquery' );
+    wp_enqueue_script( 'mbti-frontend-js', MBTI_PLUGIN_URL . 'assets/js/mbti-frontend.js', array( 'jquery' ), MBTI_PLUGIN_VERSION, true );
+    
+    // 本地化脚本
+    wp_localize_script( 'mbti-frontend-js', 'mbtiTranslations', array(
+        'incomplete_test' => esc_html__( 'Please answer all questions before submitting.', 'mbti-test-plugin' ),
+        'submitting' => esc_html__( 'Submitting...', 'mbti-test-plugin' ),
+        'submit_test' => esc_html__( 'Submit Test', 'mbti-test-plugin' ),
+        'test_completed' => esc_html__( 'Test completed successfully!', 'mbti-test-plugin' )
+    ) );
+    
     // 获取国际化后的题目数据
     $questions = mbti_get_localized_questions();
     
     if ( ! $questions || ! isset( $questions['questions'] ) ) {
-        return '<div class="mbti-error">' . __( 'Question bank data format error.', 'mbti-test' ) . '</div>';
+        return '<div class="mbti-error">' . esc_html__( 'Question bank data format error.', 'mbti-test-plugin' ) . '</div>';
     }
     
     // 根据设置决定题目顺序
@@ -29,85 +42,164 @@ function mbti_render_basic_test( $atts ) {
     // 生成测试HTML
     ob_start();
     ?>
-    <div class="mbti-test-container basic-version">
-        <h2 class="mbti-test-title"><?php _e( 'MBTI Personality Test', 'mbti-test' ); ?></h2>
-        
-        <?php if ( $atts['show_progress'] ) : ?>
-        <div class="mbti-progress-container">
-            <div class="mbti-progress-bar">
-                <div class="mbti-progress-fill" style="width: 0%"></div>
+    <div class="mbti-test-wrapper">
+        <div class="mbti-test-container">
+            <!-- 测试头部 -->
+            <div class="mbti-test-header">
+                <h2 class="mbti-test-title">
+                    <span class="mbti-icon">🧠</span>
+                    <?php echo esc_html__( 'MBTI Personality Test', 'mbti-test-plugin' ); ?>
+                </h2>
+                <p class="mbti-test-subtitle"><?php echo esc_html__( 'Discover your unique personality type through 16 carefully designed questions', 'mbti-test-plugin' ); ?></p>
             </div>
-            <span class="mbti-progress-text">0/<?php echo count( $questions['questions'] ); ?></span>
-        </div>
-        <?php endif; ?>
-        
-        <form id="mbti-test-form" class="mbti-test-form">
-            <div class="mbti-questions-container">
-                <?php foreach ( $questions['questions'] as $index => $question ) : ?>
-                <div class="mbti-question" data-question-id="<?php echo $question['id']; ?>" data-type="<?php echo $question['type']; ?>">
-                    <div class="mbti-question-number"><?php printf( __( 'Question %d', 'mbti-test' ), $index + 1 ); ?></div>
-                    <div class="mbti-question-text"><?php echo $question['text']; ?></div>
-                    <div class="mbti-question-options">
-                        <?php foreach ( $question['options'] as $option ) : ?>
-                        <div class="mbti-option">
-                            <input type="radio" name="question_<?php echo $question['id']; ?>" value="<?php echo $option['score']; ?>">
-                            <label><?php echo $option['text']; ?></label>
-                        </div>
-                        <?php endforeach; ?>
-                    </div>
+
+            <!-- 进度条 -->
+            <?php if ( $atts['show_progress'] ) : ?>
+            <div class="mbti-progress-section">
+                <div class="mbti-progress-info">
+                    <span class="mbti-progress-label"><?php echo esc_html__( 'Progress', 'mbti-test-plugin' ); ?></span>
+                    <span class="mbti-progress-text">0/<?php echo esc_html( count( $questions['questions'] ) ); ?></span>
                 </div>
-                <?php endforeach; ?>
-            </div>
-            
-            <!-- 提示信息区域 -->
-            <div id="mbti-notification" class="mbti-notification" style="display: none;">
-                <div class="mbti-notification-content"></div>
-                <button type="button" class="mbti-notification-close">×</button>
-            </div>
-            
-            <div class="mbti-test-actions">
-                <button type="button" id="prev-question" class="mbti-nav-btn" disabled><?php _e( 'Previous Question', 'mbti-test' ); ?></button>
-                <button type="submit" class="mbti-submit-btn"><?php _e( 'Submit Test', 'mbti-test' ); ?></button>
-                <button type="button" id="next-question" class="mbti-nav-btn"><?php _e( 'Next Question', 'mbti-test' ); ?></button>
-            </div>
-        </form>
-        
-        <div id="mbti-results" class="mbti-results" style="display: none;">
-            <h3 class="mbti-results-title"><?php _e( 'Your MBTI Test Results', 'mbti-test' ); ?></h3>
-            <div class="mbti-result-type"></div>
-            <div class="mbti-result-description"></div>
-            
-            <?php if ( $atts['show_share'] ) : ?>
-            <div class="mbti-share-container">
-                <h4><?php _e( 'Share Your Results:', 'mbti-test' ); ?></h4>
-                <div class="mbti-share-buttons">
-                    <button class="mbti-share-btn" data-platform="facebook"><?php _e( 'Facebook', 'mbti-test' ); ?></button>
-                    <button class="mbti-share-btn" data-platform="twitter"><?php _e( 'Twitter', 'mbti-test' ); ?></button>
-                    <button class="mbti-share-btn" data-platform="wechat"><?php _e( 'WeChat', 'mbti-test' ); ?></button>
-                </div>
-            </div>
-            <?php endif; ?>
-            
-            <!-- 广告显示区域 -->
-            <?php if ( $settings['show_ads'] ) : ?>
-            <div class="mbti-ad-container">
-                <div class="mbti-ad-content mbti-premium-upgrade">
-                    <div class="mbti-upgrade-banner">
-                        <h4 style="margin-top: 0; color: #ff6b35;"><?php _e( 'Upgrade to Premium MBTI Test', 'mbti-test' ); ?></h4>
-                        <p><?php _e( 'Unlock more professional personality analysis, career matching suggestions and personalized development reports!', 'mbti-test' ); ?></p>
-                        <ul style="text-align: left; margin: 10px auto; max-width: 400px;">
-                            <li><?php _e( '32 professional questions for more accurate personality assessment', 'mbti-test' ); ?></li>
-                            <li><?php _e( 'Detailed career development suggestions and matching analysis', 'mbti-test' ); ?></li>
-                            <li><?php _e( 'Personalized interpersonal communication guide', 'mbti-test' ); ?></li>
-                            <li><?php _e( 'Professional workplace performance improvement suggestions', 'mbti-test' ); ?></li>
-                            <li><?php _e( 'Ad-free experience', 'mbti-test' ); ?></li>
-                        </ul>
-                        <button class="mbti-upgrade-btn"><?php _e( 'Learn More', 'mbti-test' ); ?></button>
-                    </div>
+                <div class="mbti-progress-bar">
+                    <div class="mbti-progress-fill" style="width: 0%"></div>
                 </div>
             </div>
             <?php endif; ?>
 
+            <!-- 测试表单 -->
+            <form id="mbti-test-form" class="mbti-test-form">
+                <div class="mbti-questions-container">
+                    <?php foreach ( $questions['questions'] as $index => $question ) : ?>
+                    <div class="mbti-question-card" data-question-id="<?php echo esc_attr( $question['id'] ); ?>" data-type="<?php echo esc_attr( $question['type'] ); ?>">
+                        <div class="mbti-question-header">
+                            <div class="mbti-question-number">
+                                <span class="mbti-question-badge"><?php echo esc_html( $index + 1 ); ?></span>
+                                <span class="mbti-question-total">/ <?php echo esc_html( count( $questions['questions'] ) ); ?></span>
+                            </div>
+                        </div>
+                        
+                        <div class="mbti-question-content">
+                            <h3 class="mbti-question-text"><?php echo esc_html( $question['text'] ); ?></h3>
+                            
+                            <div class="mbti-question-options">
+                                <?php foreach ( $question['options'] as $option_index => $option ) : ?>
+                                <label class="mbti-option-card">
+                                    <input type="radio" 
+                                           name="question_<?php echo esc_attr( $question['id'] ); ?>" 
+                                           value="<?php echo esc_attr( $option['score'] ); ?>"
+                                           class="mbti-option-input">
+                                    <div class="mbti-option-content">
+                                        <div class="mbti-option-indicator"></div>
+                                        <div class="mbti-option-text"><?php echo esc_html( $option['text'] ); ?></div>
+                                    </div>
+                                </label>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <!-- 通知区域 -->
+                <div id="mbti-notification" class="mbti-notification" style="display: none;">
+                    <div class="mbti-notification-icon">⚠️</div>
+                    <div class="mbti-notification-content"></div>
+                    <button type="button" class="mbti-notification-close">×</button>
+                </div>
+
+                <!-- 导航按钮 -->
+                <div class="mbti-navigation">
+                    <button type="button" id="prev-question" class="mbti-nav-btn mbti-btn-secondary" disabled>
+                        <span class="mbti-btn-icon">←</span>
+                        <?php echo esc_html__( 'Previous', 'mbti-test-plugin' ); ?>
+                    </button>
+                    
+                    <div class="mbti-nav-center">
+                        <button type="submit" class="mbti-submit-btn mbti-btn-primary">
+                            <span class="mbti-btn-icon">✓</span>
+                            <?php echo esc_html__( 'Get My Results', 'mbti-test-plugin' ); ?>
+                        </button>
+                    </div>
+                    
+                    <button type="button" id="next-question" class="mbti-nav-btn mbti-btn-secondary">
+                        <?php echo esc_html__( 'Next', 'mbti-test-plugin' ); ?>
+                        <span class="mbti-btn-icon">→</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- 结果显示区域 -->
+            <div id="mbti-results" class="mbti-results-section" style="display: none;">
+                <div class="mbti-results-header">
+                    <div class="mbti-results-icon">🎯</div>
+                    <h3 class="mbti-results-title"><?php echo esc_html__( 'Your Personality Type', 'mbti-test-plugin' ); ?></h3>
+                </div>
+                
+                <div class="mbti-result-card">
+                    <div class="mbti-result-type"></div>
+                    <div class="mbti-result-description"></div>
+                </div>
+
+                <?php if ( $atts['show_share'] ) : ?>
+                <div class="mbti-share-section">
+                    <h4 class="mbti-share-title"><?php echo esc_html__( 'Share Your Results', 'mbti-test-plugin' ); ?></h4>
+                    <div class="mbti-share-buttons">
+                        <button class="mbti-share-btn mbti-share-facebook" data-platform="facebook">
+                            <span class="mbti-share-icon">📘</span>
+                            <?php echo esc_html__( 'Facebook', 'mbti-test-plugin' ); ?>
+                        </button>
+                        <button class="mbti-share-btn mbti-share-twitter" data-platform="twitter">
+                            <span class="mbti-share-icon">🐦</span>
+                            <?php echo esc_html__( 'Twitter', 'mbti-test-plugin' ); ?>
+                        </button>
+                        <button class="mbti-share-btn mbti-share-wechat" data-platform="wechat">
+                            <span class="mbti-share-icon">💬</span>
+                            <?php echo esc_html__( 'WeChat', 'mbti-test-plugin' ); ?>
+                        </button>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <!-- 升级推广区域 -->
+                <?php if ( $settings['show_ads'] ) : ?>
+                <div class="mbti-upgrade-section">
+                    <div class="mbti-upgrade-card">
+                        <div class="mbti-upgrade-header">
+                            <div class="mbti-upgrade-icon">⭐</div>
+                            <h4 class="mbti-upgrade-title"><?php echo esc_html__( 'Unlock Premium Features', 'mbti-test-plugin' ); ?></h4>
+                        </div>
+                        
+                        <p class="mbti-upgrade-description">
+                            <?php echo esc_html__( 'Get deeper insights with our professional analysis and personalized recommendations', 'mbti-test-plugin' ); ?>
+                        </p>
+                        
+                        <div class="mbti-upgrade-features">
+                            <div class="mbti-feature-item">
+                                <span class="mbti-feature-icon">📊</span>
+                                <span class="mbti-feature-text"><?php echo esc_html__( 'Detailed personality analysis', 'mbti-test-plugin' ); ?></span>
+                            </div>
+                            <div class="mbti-feature-item">
+                                <span class="mbti-feature-icon">💼</span>
+                                <span class="mbti-feature-text"><?php echo esc_html__( 'Career recommendations', 'mbti-test-plugin' ); ?></span>
+                            </div>
+                            <div class="mbti-feature-item">
+                                <span class="mbti-feature-icon">🤝</span>
+                                <span class="mbti-feature-text"><?php echo esc_html__( 'Relationship compatibility', 'mbti-test-plugin' ); ?></span>
+                            </div>
+                            <div class="mbti-feature-item">
+                                <span class="mbti-feature-icon">🚀</span>
+                                <span class="mbti-feature-text"><?php echo esc_html__( 'Personal development tips', 'mbti-test-plugin' ); ?></span>
+                            </div>
+                        </div>
+                        
+                        <button class="mbti-upgrade-btn">
+                            <span class="mbti-btn-icon">🔓</span>
+                            <?php echo esc_html__( 'Upgrade Now', 'mbti-test-plugin' ); ?>
+                        </button>
+                    </div>
+                </div>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
     
@@ -242,7 +334,7 @@ function mbti_render_basic_test( $atts ) {
                 
                 // 验证是否所有题目都已回答
                 if (answeredQuestions < totalQuestions) {
-                    showNotification('<?php _e( 'Please answer all questions, jumping to unanswered questions...', 'mbti-test' ); ?>', 'error');
+                    showNotification('<?php echo esc_js( __( 'Please answer all questions, jumping to unanswered questions...', 'mbti-test-plugin' ) ); ?>', 'error');
                     
                     // 跳转到第一个未回答的题目
                     if (firstUnansweredQuestion !== null) {
@@ -279,7 +371,7 @@ function mbti_render_basic_test( $atts ) {
                 if (!resultsData || typeof resultsData !== 'object') {
                     resultsData = {};
                 }
-                var result = resultsData[mbtiType] || { name: '<?php _e( 'Unknown Type', 'mbti-test' ); ?>', description: '<?php _e( 'Unable to determine your personality type', 'mbti-test' ); ?>' };
+                var result = resultsData[mbtiType] || { name: '<?php echo esc_js( __( 'Unknown Type', 'mbti-test-plugin' ) ); ?>', description: '<?php echo esc_js( __( 'Unable to determine your personality type', 'mbti-test-plugin' ) ); ?>' };
                 
                 // 显示结果
                 $('.mbti-result-type').text(mbtiType + ': ' + result.name);
@@ -293,7 +385,7 @@ function mbti_render_basic_test( $atts ) {
             $('.mbti-share-btn').click(function() {
                 var platform = $(this).data('platform');
                 var url = window.location.href;
-                var title = '<?php printf( __( 'My MBTI Personality Test Result: %s', 'mbti-test' ), '' ); ?>' + $('.mbti-result-type').text();
+                var title = '<?php echo esc_js( __( 'My MBTI Personality Test Result: ', 'mbti-test-plugin' ) ); ?>' + $('.mbti-result-type').text();
                 
                 switch(platform) {
                     case 'facebook':
@@ -303,7 +395,7 @@ function mbti_render_basic_test( $atts ) {
                         window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(title), '_blank');
                         break;
                     case 'wechat':
-                        alert('<?php _e( 'Please scan QR code to share on WeChat', 'mbti-test' ); ?>');
+                        alert('<?php echo esc_js( __( 'Please scan QR code to share on WeChat', 'mbti-test-plugin' ) ); ?>');
                         break;
                 }
             });

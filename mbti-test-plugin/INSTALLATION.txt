@@ -1,0 +1,48 @@
+MBTI 测试插件安装指南
+===================
+
+快速安装:
+--------
+1. 将整个 mbti-test-plugin 文件夹上传到 /wp-content/plugins/ 目录
+2. 登录 WordPress 后台，进入"插件"页面
+3. 找到 "MBTI Personality Test Plugin" 并点击"激活"
+4. 在任意页面或文章中使用短代码: [mbti_test]
+
+语言配置:
+--------
+插件会自动检测 WordPress 的语言设置：
+- 中文环境 (zh_CN, zh_TW): 显示中文题目
+- 英文环境 (en_US): 显示英文题目
+- 其他语言: 默认显示英文题目
+
+无需手动配置，插件会自动适配！
+
+管理设置:
+--------
+激活插件后，在 WordPress 后台左侧菜单会出现 "MBTI Test" 选项：
+- 仪表盘: 查看插件概况
+- 设置: 配置插件选项
+- 题目管理: 管理测试题库
+
+短代码使用:
+----------
+基础用法: [mbti_test]
+带参数: [mbti_test show_progress="true" show_share="true"]
+
+可用参数:
+- show_progress: 显示进度条 (true/false)
+- show_share: 显示分享按钮 (true/false)
+
+故障排除:
+--------
+如果遇到问题：
+1. 确保 WordPress 版本 >= 5.0
+2. 检查插件文件完整性
+3. 确认语言文件存在于 languages/ 目录
+4. 检查服务器 PHP 版本 >= 7.4
+
+技术支持:
+--------
+如需帮助，请检查以下文件：
+- readme.txt: 详细说明
+- PLUGIN-INFO.txt: 插件信息
