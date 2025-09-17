@@ -8,7 +8,7 @@
  * Author URI: https://member.friday-go.icu
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: mbti-test-plugin
+ * Text Domain: mbti-personality-test
  * Domain Path: /languages
  */
 
@@ -22,18 +22,7 @@ define( 'MBTI_PLUGIN_VERSION', '1.1.0' );
 define( 'MBTI_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MBTI_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
-/**
- * 加载插件文本域
- * 必须在 init 钩子中调用，符合 WordPress 官方标准
- */
-function mbti_load_textdomain() {
-    load_plugin_textdomain( 
-        'mbti-test-plugin', 
-        false, 
-        dirname( plugin_basename( __FILE__ ) ) . '/languages' 
-    );
-}
-add_action( 'init', 'mbti_load_textdomain' );
+
 
 /**
  * 插件初始化
@@ -71,15 +60,15 @@ function mbti_get_current_language() {
 /**
  * 获取翻译后的文本
  */
-function mbti_translate( $text, $domain = 'mbti-test-plugin' ) {
-    return esc_html__( $text, $domain );
+function mbti_translate( $text ) {
+    return esc_html( $text );
 }
 
 /**
  * 输出翻译后的文本
  */
-function mbti_e( $text, $domain = 'mbti-test-plugin' ) {
-    echo esc_html__( $text, $domain );
+function mbti_e( $text ) {
+    echo esc_html( $text );
 }
 
 /**
@@ -119,11 +108,11 @@ function mbti_get_localized_questions() {
         // 对题目文本进行翻译
         foreach ( $questions['questions'] as &$question ) {
             // 翻译题目文本
-            $question['text'] = esc_html__( $question['text'], 'mbti-test-plugin' );
+            $question['text'] = esc_html( $question['text'] );
             
             // 翻译选项文本
             foreach ( $question['options'] as &$option ) {
-                $option['text'] = esc_html__( $option['text'], 'mbti-test-plugin' );
+                $option['text'] = esc_html( $option['text'] );
             }
             unset( $option );
         }
@@ -132,8 +121,8 @@ function mbti_get_localized_questions() {
         // 对性格类型进行翻译
         if ( isset( $questions['results'] ) ) {
             foreach ( $questions['results'] as &$type ) {
-                $type['name'] = esc_html__( $type['name'], 'mbti-test-plugin' );
-                $type['description'] = esc_html__( $type['description'], 'mbti-test-plugin' );
+                $type['name'] = esc_html( $type['name'] );
+                $type['description'] = esc_html( $type['description'] );
             }
             unset( $type );
         }

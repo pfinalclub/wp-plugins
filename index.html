@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>MBTI Personality Test - 插件落地页</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="MBTI Personality Test：现代化的 MBTI 测试插件，支持多语言、验证与响应式界面。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b1020;--card:#111831;--muted:#9fb0d0;--text:#e8efff;--acc:#6ea8ff;--acc2:#8fcbff;--ok:#18c08f}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:radial-gradient(1200px 800px at 70% -10%, #1a2448 0%, rgba(10,10,30,0) 60%), var(--bg); color:var(--text); font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    a{color:var(--acc);text-decoration:none}
+    a:hover{color:#a8c8ff}
+    .wrap{max-width:1080px;margin:0 auto;padding:56px 20px 80px}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+    .logo{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#2f4bff 0%,#00dbde 100%); box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    h1{font-size:32px;margin:0}
+    .sub{color:var(--muted);margin:6px 0 0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:24px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08); border-radius:14px;padding:18px;backdrop-filter: blur(6px)}
+    .card h3{margin:0 0 8px}
+    .muted{color:var(--muted)}
+    .cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+    .btn{padding:12px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.15);font-weight:600}
+    .btn.primary{background:linear-gradient(135deg,#3a6cf6,#2dd7ff);color:#03102a;border:none;box-shadow:0 10px 25px rgba(41,121,255,.25)}
+    .btn.ghost{background:transparent;color:var(--text)}
+    footer{margin-top:48px;color:var(--muted);font-size:13px}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#0f1630;border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:2px 6px}
+    .tag{display:inline-block;font-size:12px;color:#07203a;background:linear-gradient(135deg,#7bdcff,#b3f0ff);border-radius:999px;padding:6px 10px;font-weight:700;margin-left:6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <h1>MBTI Personality Test <span class="tag">WordPress</span></h1>
+        <p class="sub">现代化 MBTI 测试插件：响应式、可本地化、表单校验、即时结果展示。</p>
+      </div>
+    </header>
+
+    <section class="grid">
+      <div class="card">
+        <h3>功能亮点</h3>
+        <ul class="muted">
+          <li>16 道题覆盖 4 大维度，选择后自动跳题</li>
+          <li>仅最后一题显示“提交”，并进行完整性校验</li>
+          <li>多语言支持（英文 / 中文），JSON 本地题库</li>
+          <li>安全输出与规范实现（符合 WP 标准）</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>快速开始</h3>
+        <ol class="muted">
+          <li>上传并激活插件</li>
+          <li>新建页面插入短代码 <span class="kbd">[mbti_test]</span></li>
+          <li>在后台 “MBTI” 菜单进行配置</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>兼容性</h3>
+        <p class="muted">WordPress 5.0+，PHP 7.4+。Readme 已标注 Tested up to 6.8。</p>
+      </div>
+    </section>
+
+    <div class="cta">
+      <a class="btn primary" href="./mbti-test-plugin/plugin-intro.html">查看插件介绍</a>
+      <a class="btn ghost" href="./mbti-test-plugin/">浏览插件目录</a>
+    </div>
+
+    <footer>
+      <p>Text Domain: mbti-personality-test · License: GPLv2 or later</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>MBTI Personality Test - 插件介绍</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="MBTI Personality Test 插件介绍与功能说明。">
+  <style>
+    :root{--bg:#0b1020;--card:#111831;--muted:#9fb0d0;--text:#e8efff;--border:rgba(255,255,255,.08)}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:radial-gradient(1200px 800px at 70% -10%, #1a2448 0%, rgba(10,15,30,0) 60%), var(--bg); color:var(--text); font-family:system-ui,-apple-system,Inter,Segoe UI,Roboto,Arial}
+    a{color:#8fcbff;text-decoration:none}
+    a:hover{color:#b7e2ff}
+    .wrap{max-width:980px;margin:0 auto;padding:56px 18px 72px}
+    h1{margin:0 0 8px;font-size:30px}
+    p.sub{margin:0;color:var(--muted)}
+    .card{margin-top:18px;padding:18px;border:1px solid var(--border);border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02))}
+    code{background:#0f1630;border:1px solid var(--border);padding:2px 6px;border-radius:6px;font-family:ui-monospace,Menlo,monospace}
+    ul,ol{margin:10px 0 0 22px}
+    .back{margin-top:22px;display:flex;gap:14px;flex-wrap:wrap}
+    .btn{padding:10px 14px;border-radius:10px;border:1px solid var(--border)}
+    .btn.primary{background:linear-gradient(135deg,#3a6cf6,#2dd7ff);color:#03102a;border:none}
+    footer{margin-top:28px;color:var(--muted);font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>MBTI Personality Test</h1>
+    <p class="sub">现代化的 MBTI 测试插件，提供响应式界面、自动跳题、验证提示、多语言支持等能力。</p>
+
+    <div class="card">
+      <h2>功能特性</h2>
+      <ul>
+        <li>完整 MBTI 评估（16 题，覆盖 4 大性格维度）</li>
+        <li>选择后自动跳到下一题，减少操作成本</li>
+        <li>仅在最后一题显示“提交”，提交前进行完整性校验并友好提示</li>
+        <li>JSON 本地题库，按站点语言自动加载（中文 / 英文）</li>
+        <li>遵循 WordPress 规范，所有动态文本安全转义输出</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>使用说明</h2>
+      <ol>
+        <li>安装并激活插件</li>
+        <li>在页面或文章中插入短代码 <code>[mbti_test]</code></li>
+        <li>后台 “MBTI” 菜单可进行基础配置</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>兼容性</h2>
+      <p>WordPress 5.0+，PHP 7.4+。Readme 标注 Tested up to 6.8。</p>
+    </div>
+
+    <div class="card">
+      <h2>开源与协议</h2>
+      <p>License: GPLv2 or later · Text Domain: mbti-personality-test</p>
+    </div>
+
+    <div class="back">
+      <a class="btn" href="../index.html">返回落地页</a>
+      <a class="btn primary" href="./">浏览插件目录</a>
+    </div>
+
+    <footer>
+      <p>© MBTI Personality Test · Built for WordPress</p>
+    </footer>
+  </div>
+</body>
+</html>
