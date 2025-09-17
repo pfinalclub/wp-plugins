@@ -1,0 +1,1053 @@
+/* MBTI Test Plugin - Modern Layout Styles */
+
+/* 全局容器 */
+.mbti-test-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.mbti-test-container {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
+}
+
+/* 测试头部 */
+.mbti-test-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+}
+
+.mbti-test-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.15"/><circle cx="20" cy="80" r="0.5" fill="white" opacity="0.15"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    pointer-events: none;
+}
+
+.mbti-test-title {
+    margin: 0 0 10px 0;
+    font-size: 2.2em;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+}
+
+.mbti-icon {
+    display: inline-block;
+    margin-right: 12px;
+    font-size: 1.1em;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.mbti-test-subtitle {
+    margin: 0;
+    font-size: 1.1em;
+    opacity: 0.9;
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+}
+
+/* 进度条区域 */
+.mbti-progress-section {
+    padding: 25px 30px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.mbti-progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.mbti-progress-label {
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 0.9em;
+}
+
+.mbti-progress-text {
+    font-weight: 700;
+    color: #667eea;
+    font-size: 0.9em;
+}
+
+.mbti-progress-bar {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.mbti-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.mbti-progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* 问题容器 */
+.mbti-questions-container {
+    padding: 0;
+}
+
+.mbti-question-card {
+    padding: 30px;
+    border-bottom: 1px solid #f1f5f9;
+    transition: all 0.3s ease;
+    display: none;
+}
+
+.mbti-question-card:first-child {
+    display: block;
+}
+
+.mbti-question-card.active {
+    display: block;
+    background: #fafbfc;
+}
+
+.mbti-question-header {
+    margin-bottom: 20px;
+}
+
+.mbti-question-number {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mbti-question-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.9em;
+}
+
+.mbti-question-total {
+    color: #64748b;
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+.mbti-question-content {
+    margin-top: 20px;
+}
+
+.mbti-question-text {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: white;
+    margin: 0 0 25px 0;
+    line-height: 1.4;
+}
+
+/* 选项样式 */
+.mbti-question-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 强制隐藏所有原生单选按钮 */
+.mbti-question-options input[type="radio"],
+.mbti-option input[type="radio"],
+.mbti-option-card input[type="radio"],
+.mbti-option-input {
+    position: absolute !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+}
+
+.mbti-option-card {
+    display: block;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    background: white;
+    overflow: hidden;
+    position: relative;
+}
+
+.mbti-option-card:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.mbti-option-card .radiobutton {
+    display: none;
+}
+.mbti-option-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
+
+/* 隐藏原生单选按钮 */
+input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
+
+/* 选中状态样式 - 适配当前HTML结构 */
+.mbti-option-card:has(input[type="radio"]:checked) .mbti-option-content,
+.mbti-option-card input[type="radio"]:checked + .mbti-option-content,
+.mbti-option-input:checked + .mbti-option-content,
+input[type="radio"]:checked + .mbti-option-content {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-color: #667eea;
+}
+
+.mbti-option-card:has(input[type="radio"]:checked) .mbti-option-indicator,
+.mbti-option-card input[type="radio"]:checked + .mbti-option-content .mbti-option-indicator,
+.mbti-option-input:checked + .mbti-option-content .mbti-option-indicator,
+input[type="radio"]:checked + .mbti-option-content .mbti-option-indicator {
+    background: white;
+    border-color: white;
+}
+
+.mbti-option-card:has(input[type="radio"]:checked) .mbti-option-indicator::after,
+.mbti-option-card input[type="radio"]:checked + .mbti-option-content .mbti-option-indicator::after,
+.mbti-option-input:checked + .mbti-option-content .mbti-option-indicator::after,
+input[type="radio"]:checked + .mbti-option-content .mbti-option-indicator::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* 为label作为容器的结构添加选中状态 */
+label.mbti-option-card:has(input[type="radio"]:checked) {
+    background: transparent;
+    border-color: #667eea;
+}
+
+/* JavaScript控制的选中状态样式 */
+.mbti-option-card.mbti-selected {
+    border-color: #667eea !important;
+    background: transparent !important;
+}
+
+.mbti-option-content.mbti-selected {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    color: white !important;
+}
+
+.mbti-option-indicator.mbti-selected {
+    background: white !important;
+    border-color: white !important;
+}
+
+.mbti-option-indicator.mbti-selected::after {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+/* 兼容原有结构的JavaScript控制样式 */
+.mbti-option.mbti-selected {
+    border-color: #667eea !important;
+}
+
+.mbti-option.mbti-selected label {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    color: white !important;
+}
+
+.mbti-option.mbti-selected label::before {
+    background: white !important;
+    border-color: white !important;
+}
+
+.mbti-option.mbti-selected label::after {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+}
+
+.mbti-option-content {
+    display: flex;
+    align-items: center;
+    padding: 18px 20px;
+    gap: 15px;
+    transition: all 0.2s ease;
+}
+
+/* 兼容原有HTML结构的选项样式 */
+.mbti-option {
+    display: block;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    background: white;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.mbti-option:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.mbti-option label {
+    display: flex;
+    align-items: center;
+    padding: 18px 20px;
+    gap: 15px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    margin: 0;
+}
+
+/* 为原有结构添加自定义单选按钮指示器 */
+.mbti-option label::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    background: white;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.mbti-option label::after {
+    content: '';
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    background: #667eea;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+/* 选中状态样式 - 兼容原有结构 */
+.mbti-option input[type="radio"]:checked + label {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.mbti-option input[type="radio"]:checked + label::before {
+    background: white;
+    border-color: white;
+}
+
+.mbti-option input[type="radio"]:checked + label::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.mbti-option-indicator {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    background: white;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.mbti-option-indicator::after {
+    content: '';
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 8px;
+    height: 8px;
+    background: #667eea;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.mbti-option-text {
+    font-size: 1em;
+    font-weight: 500;
+    flex: 1;
+}
+
+/* 通知区域 */
+.mbti-notification {
+    margin: 20px 30px;
+    padding: 16px 20px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mbti-notification-icon {
+    font-size: 1.2em;
+    flex-shrink: 0;
+}
+
+.mbti-notification-content {
+    flex: 1;
+    color: #dc2626;
+    font-weight: 500;
+}
+
+.mbti-notification-close {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: #dc2626;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.mbti-notification-close:hover {
+    background: rgba(220, 38, 38, 0.1);
+}
+
+/* 导航区域 */
+.mbti-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+}
+
+.mbti-nav-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* 按钮样式 */
+.mbti-nav-btn, .mbti-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.mbti-btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.mbti-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.mbti-btn-secondary {
+    background: white;
+    color: #64748b;
+    border: 2px solid #e2e8f0;
+}
+
+.mbti-btn-secondary:hover:not(:disabled) {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+}
+
+.mbti-btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.mbti-btn-icon {
+    font-size: 1.1em;
+}
+
+/* 结果区域 */
+.mbti-results-section {
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.mbti-results-header {
+    margin-bottom: 30px;
+}
+
+.mbti-results-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+    animation: bounce 1s ease infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+.mbti-results-title {
+    font-size: 2em;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.mbti-result-card {
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 1px solid #e2e8f0;
+}
+
+.mbti-result-type {
+    font-size: 2.5em;
+    font-weight: 800;
+    color: #667eea;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mbti-result-description {
+    font-size: 1.1em;
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+/* 分享区域 */
+.mbti-share-section {
+    margin-bottom: 30px;
+}
+
+.mbti-share-title {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 20px;
+}
+
+.mbti-share-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mbti-share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #1877f2;
+}
+
+.mbti-share-facebook {
+    background: #1877f2;
+}
+
+.mbti-share-twitter {
+    background: #1da1f2;
+}
+
+.mbti-share-wechat {
+    background: #07c160;
+}
+
+.mbti-share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.mbti-share-icon {
+    font-size: 1.1em;
+}
+
+/* 升级区域 */
+.mbti-upgrade-section {
+    margin-top: 40px;
+}
+
+.mbti-upgrade-card {
+    background: linear-gradient(135deg, #fef7cd, #fef3c7);
+    border: 2px solid #f59e0b;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.mbti-upgrade-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.mbti-upgrade-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.mbti-upgrade-icon {
+    font-size: 1.5em;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(180deg); }
+}
+
+.mbti-upgrade-title {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #92400e;
+    margin: 0;
+}
+
+.mbti-upgrade-description {
+    color: #78350f;
+    font-size: 1em;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.mbti-upgrade-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.mbti-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    font-size: 0.9em;
+}
+
+.mbti-feature-icon {
+    font-size: 1.2em;
+    flex-shrink: 0;
+}
+
+.mbti-feature-text {
+    font-weight: 500;
+    color: #78350f;
+}
+
+.mbti-upgrade-btn {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.mbti-upgrade-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+/* 验证告警样式 */
+.mbti-validation-warning {
+    margin: 20px 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    animation: slideDown 0.3s ease-out;
+}
+
+.mbti-warning-content {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+    border-left: 4px solid #ff4757;
+    position: relative;
+    overflow: hidden;
+}
+
+.mbti-warning-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    animation: shimmer 2s infinite;
+}
+
+.mbti-warning-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    animation: pulse 1.5s infinite;
+}
+
+.mbti-warning-text {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.mbti-warning-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.mbti-warning-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* 问题高亮样式 */
+.mbti-question-highlight {
+    animation: questionHighlight 3s ease-in-out;
+    border: 3px solid #ffc107 !important;
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.4) !important;
+}
+
+@keyframes questionHighlight {
+    0%, 100% {
+        background-color: transparent;
+    }
+    25%, 75% {
+        background-color: rgba(255, 193, 7, 0.1);
+    }
+    50% {
+        background-color: rgba(255, 193, 7, 0.2);
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .mbti-test-wrapper {
+        padding: 10px;
+    }
+    
+    .mbti-test-header {
+        padding: 30px 20px;
+    }
+    
+    .mbti-test-title {
+        font-size: 1.8em;
+    }
+    
+    .mbti-question-card {
+        padding: 20px;
+    }
+    
+    .mbti-question-text {
+        font-size: 1.2em;
+    }
+    
+    .mbti-navigation {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+    
+    .mbti-nav-center {
+        order: -1;
+    }
+    
+    .mbti-share-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .mbti-upgrade-features {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .mbti-test-title {
+        font-size: 1.5em;
+    }
+    
+    .mbti-test-subtitle {
+        font-size: 1em;
+    }
+    
+    .mbti-question-text {
+        font-size: 1.1em;
+    }
+    
+    .mbti-option-content {
+        padding: 15px;
+    }
+    
+    .mbti-results-title {
+        font-size: 1.6em;
+    }
+    
+    .mbti-result-type {
+        font-size: 2em;
+    }
+}
+
+/* 动画和过渡效果 */
+.mbti-question-card {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 加载状态 */
+.mbti-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 无障碍支持 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    .mbti-test-container {
+        border: 2px solid #000;
+    }
+    
+    .mbti-option-card {
+        border-width: 3px;
+    }
+    
+    .mbti-btn-primary {
+        background: #000;
+        color: #fff;
+    }
+}
+
+/* 深色模式支持 */
+@media (prefers-color-scheme: dark) {
+    .mbti-test-wrapper {
+        color: #e2e8f0;
+    }
+    
+    .mbti-test-container {
+        background: #1a202c;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    }
+    
+    .mbti-progress-section {
+        background: #2d3748;
+        border-color: #4a5568;
+    }
+    
+    .mbti-question-card {
+        border-color: #4a5568;
+    }
+    
+    .mbti-question-card.active {
+        background: #2d3748;
+    }
+    
+    .mbti-option-card {
+        background: #2d3748;
+        border-color: #4a5568;
+        color: #e2e8f0;
+    }
+    
+    .mbti-navigation {
+        background: #2d3748;
+        border-color: #4a5568;
+    }
+    
+    .mbti-btn-secondary {
+        background: #2d3748;
+        color: #e2e8f0;
+        border-color: #4a5568;
+    }
+}

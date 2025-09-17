@@ -3,7 +3,7 @@
  * Plugin Name: MBTI Personality Test
  * Plugin URI: https://mbti.friday-go.icu/mbti-test-plugin
  * Description: A comprehensive MBTI personality test plugin that helps users understand their personality type.
- * Version: 1.1.0
+ * Version: 1.0.0
  * Author: PFinalClub
  * Author URI: https://member.friday-go.icu
  * License: GPL-2.0+

@@ -9,16 +9,24 @@
  */
 function mbti_render_basic_test( $atts ) {
     // 加载前端样式和脚本
-    wp_enqueue_style( 'mbti-frontend-styles', MBTI_PLUGIN_URL . 'assets/css/mbti-frontend.css', array(), MBTI_PLUGIN_VERSION );
+    wp_enqueue_style( 'mbti-modern-styles', MBTI_PLUGIN_URL . 'assets/css/mbti-modern.css', array(), MBTI_PLUGIN_VERSION );
     wp_enqueue_script( 'jquery' );
-    wp_enqueue_script( 'mbti-frontend-js', MBTI_PLUGIN_URL . 'assets/js/mbti-frontend.js', array( 'jquery' ), MBTI_PLUGIN_VERSION, true );
+    wp_enqueue_script( 'mbti-compatible-js', MBTI_PLUGIN_URL . 'assets/js/mbti-compatible.js', array( 'jquery' ), MBTI_PLUGIN_VERSION, true );
     
-    // 本地化脚本
-    wp_localize_script( 'mbti-frontend-js', 'mbtiTranslations', array(
+    // 本地化脚本 - 为兼容版JavaScript提供翻译
+    wp_localize_script( 'mbti-compatible-js', 'mbtiTranslations', array(
         'incomplete_test' => esc_html__( 'Please answer all questions before submitting.', 'mbti-test-plugin' ),
+        'incomplete_question' => esc_html__( 'Please answer the current question before continuing.', 'mbti-test-plugin' ),
         'submitting' => esc_html__( 'Submitting...', 'mbti-test-plugin' ),
         'submit_test' => esc_html__( 'Submit Test', 'mbti-test-plugin' ),
-        'test_completed' => esc_html__( 'Test completed successfully!', 'mbti-test-plugin' )
+        'test_completed' => esc_html__( 'Test completed successfully!', 'mbti-test-plugin' ),
+        'previous' => esc_html__( 'Previous Question', 'mbti-test-plugin' ),
+        'next' => esc_html__( 'Next Question', 'mbti-test-plugin' ),
+        'get_results' => esc_html__( 'Submit Test', 'mbti-test-plugin' ),
+        'progress' => esc_html__( 'Progress', 'mbti-test-plugin' ),
+        'question_number' => esc_html__( 'Question %d of %d', 'mbti-test-plugin' ),
+        'share_success' => esc_html__( 'Link copied to clipboard! You can now share it on WeChat.', 'mbti-test-plugin' ),
+        'upgrade_coming_soon' => esc_html__( 'Premium features coming soon! Stay tuned.', 'mbti-test-plugin' )
     ) );
     
     // 获取国际化后的题目数据
@@ -70,7 +78,7 @@ function mbti_render_basic_test( $atts ) {
             <form id="mbti-test-form" class="mbti-test-form">
                 <div class="mbti-questions-container">
                     <?php foreach ( $questions['questions'] as $index => $question ) : ?>
-                    <div class="mbti-question-card" data-question-id="<?php echo esc_attr( $question['id'] ); ?>" data-type="<?php echo esc_attr( $question['type'] ); ?>">
+                    <div class="mbti-question-card" data-question-id="<?php echo esc_attr( $question['id'] ); ?>" data-type="<?php echo esc_attr( $question['type'] ); ?>" data-question-index="<?php echo esc_attr( $index ); ?>">
                         <div class="mbti-question-header">
                             <div class="mbti-question-number">
                                 <span class="mbti-question-badge"><?php echo esc_html( $index + 1 ); ?></span>
@@ -111,18 +119,18 @@ function mbti_render_basic_test( $atts ) {
                 <div class="mbti-navigation">
                     <button type="button" id="prev-question" class="mbti-nav-btn mbti-btn-secondary" disabled>
                         <span class="mbti-btn-icon">←</span>
-                        <?php echo esc_html__( 'Previous', 'mbti-test-plugin' ); ?>
+                        <?php echo esc_html__( 'Previous Question', 'mbti-test-plugin' ); ?>
                     </button>
                     
                     <div class="mbti-nav-center">
-                        <button type="submit" class="mbti-submit-btn mbti-btn-primary">
+                        <button type="submit" class="mbti-submit-btn mbti-btn-primary" style="display: none;">
                             <span class="mbti-btn-icon">✓</span>
-                            <?php echo esc_html__( 'Get My Results', 'mbti-test-plugin' ); ?>
+                            <?php echo esc_html__( 'Submit Test', 'mbti-test-plugin' ); ?>
                         </button>
                     </div>
                     
                     <button type="button" id="next-question" class="mbti-nav-btn mbti-btn-secondary">
-                        <?php echo esc_html__( 'Next', 'mbti-test-plugin' ); ?>
+                        <?php echo esc_html__( 'Next Question', 'mbti-test-plugin' ); ?>
                         <span class="mbti-btn-icon">→</span>
                     </button>
                 </div>
@@ -203,205 +211,7 @@ function mbti_render_basic_test( $atts ) {
         </div>
     </div>
     
-    <script>
-    (function($) {
-        $(document).ready(function() {
-            var totalQuestions = $('.mbti-question').length;
-            var currentQuestion = 0;
-            
-            // 初始显示第一题
-            $('.mbti-question').hide();
-            $('.mbti-question').eq(0).show();
-            
-            // 更新导航按钮状态
-            function updateNavButtons() {
-                $('#prev-question').prop('disabled', currentQuestion === 0);
-                $('#next-question').prop('disabled', currentQuestion === totalQuestions - 1);
-            }
-            
-            // 实时更新进度
-            function updateProgress() {
-                var answered = 0;
-                $('.mbti-question').each(function() {
-                    var questionId = $(this).data('question-id');
-                    if ($('input[name="question_' + questionId + '"]:checked').length > 0) {
-                        answered++;
-                    }
-                });
-                
-                var progressPercent = (answered / totalQuestions) * 100;
-                $('.mbti-progress-fill').css('width', progressPercent + '%');
-                $('.mbti-progress-text').text(answered + '/' + totalQuestions);
-            }
-            
-            // 切换到指定问题
-            function goToQuestion(index) {
-                $('.mbti-question').hide();
-                $('.mbti-question').eq(index).show();
-                currentQuestion = index;
-                updateNavButtons();
-            }
-            
-            // 监听选项变化，更新进度和自动切换
-            $('input[type="radio"]').change(function() {
-                updateProgress();
-                
-                // 如果不是最后一题，自动切换到下一题
-                if (currentQuestion < totalQuestions - 1) {
-                    setTimeout(function() {
-                        goToQuestion(currentQuestion + 1);
-                    }, 500); // 延迟500毫秒切换，让用户看到自己的选择
-                }
-            });
-            
-            // 上一题按钮
-            $('#prev-question').click(function(e) {
-                e.preventDefault();
-                if (currentQuestion > 0) {
-                    goToQuestion(currentQuestion - 1);
-                }
-            });
-            
-            // 下一题按钮
-            $('#next-question').click(function(e) {
-                e.preventDefault();
-                if (currentQuestion < totalQuestions - 1) {
-                    goToQuestion(currentQuestion + 1);
-                }
-            });
-            
-            // 显示通知提示
-              function showNotification(message, type) {
-                  var notification = $('#mbti-notification');
-                  notification.find('.mbti-notification-content').text(message);
-                  notification.removeClass('mbti-notification-error mbti-notification-success mbti-notification-info');
-                  notification.addClass('mbti-notification-' + (type || 'error'));
-                  notification.show();
-                  
-                  // 点击关闭按钮事件
-                  notification.find('.mbti-notification-close').off('click').on('click', function() {
-                      notification.hide();
-                  });
-                  
-                  // 3秒后自动隐藏
-                  setTimeout(function() {
-                      notification.fadeOut();
-                  }, 3000);
-              }
-            
-            // 提交表单
-            $('#mbti-test-form').submit(function(e) {
-                e.preventDefault();
-                
-                // 计算结果
-                var scores = {
-                    'EI': 0,
-                    'SN': 0,
-                    'TF': 0,
-                    'JP': 0
-                };
-                
-                var answeredQuestions = 0;
-                var totalEI = 0, totalSN = 0, totalTF = 0, totalJP = 0;
-                var firstUnansweredQuestion = null;
-                
-                $('.mbti-question').each(function(index) {
-                    var type = $(this).data('type');
-                    var questionId = $(this).data('question-id');
-                    var selectedOption = $('input[name="question_' + questionId + '"]:checked');
-                    
-                    if (selectedOption.length > 0) {
-                        answeredQuestions++;
-                        var score = parseInt(selectedOption.val());
-                        scores[type] += score;
-                        
-                        // 统计各维度题目数量
-                        switch(type) {
-                            case 'EI': totalEI++;
-                                break;
-                            case 'SN': totalSN++;
-                                break;
-                            case 'TF': totalTF++;
-                                break;
-                            case 'JP': totalJP++;
-                                break;
-                        }
-                    } else if (firstUnansweredQuestion === null) {
-                        // 记录第一个未回答的题目索引
-                        firstUnansweredQuestion = index;
-                    }
-                });
-                
-                // 验证是否所有题目都已回答
-                if (answeredQuestions < totalQuestions) {
-                    showNotification('<?php echo esc_js( __( 'Please answer all questions, jumping to unanswered questions...', 'mbti-test-plugin' ) ); ?>', 'error');
-                    
-                    // 跳转到第一个未回答的题目
-                    if (firstUnansweredQuestion !== null) {
-                        setTimeout(function() {
-                            goToQuestion(firstUnansweredQuestion);
-                            // 为未回答的题目添加高亮提示
-                            $('.mbti-question').eq(firstUnansweredQuestion).addClass('mbti-question-unanswered');
-                            setTimeout(function() {
-                                $('.mbti-question').eq(firstUnansweredQuestion).removeClass('mbti-question-unanswered');
-                            }, 2000);
-                        }, 1000);
-                    }
-                    return;
-                }
-                
-                // 确定MBTI类型
-                var mbtiType = '';
-                
-                // EI维度：得分大于等于平均分表示I，否则表示E
-                mbtiType += (scores['EI'] >= totalEI / 2) ? 'I' : 'E';
-                
-                // SN维度：得分大于等于平均分表示N，否则表示S
-                mbtiType += (scores['SN'] >= totalSN / 2) ? 'N' : 'S';
-                
-                // TF维度：得分大于等于平均分表示F，否则表示T
-                mbtiType += (scores['TF'] >= totalTF / 2) ? 'F' : 'T';
-                
-                // JP维度：得分大于等于平均分表示P，否则表示J
-                mbtiType += (scores['JP'] >= totalJP / 2) ? 'P' : 'J';
-                
-                // 获取结果描述
-                var resultsData = <?php echo json_encode( $questions['results'] ); ?>;
-                // 确保结果数据存在
-                if (!resultsData || typeof resultsData !== 'object') {
-                    resultsData = {};
-                }
-                var result = resultsData[mbtiType] || { name: '<?php echo esc_js( __( 'Unknown Type', 'mbti-test-plugin' ) ); ?>', description: '<?php echo esc_js( __( 'Unable to determine your personality type', 'mbti-test-plugin' ) ); ?>' };
-                
-                // 显示结果
-                $('.mbti-result-type').text(mbtiType + ': ' + result.name);
-                $('.mbti-result-description').text(result.description);
-                
-                $('.mbti-test-form').hide();
-                $('#mbti-results').show();
-            });
-            
-            // 分享功能
-            $('.mbti-share-btn').click(function() {
-                var platform = $(this).data('platform');
-                var url = window.location.href;
-                var title = '<?php echo esc_js( __( 'My MBTI Personality Test Result: ', 'mbti-test-plugin' ) ); ?>' + $('.mbti-result-type').text();
-                
-                switch(platform) {
-                    case 'facebook':
-                        window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url), '_blank');
-                        break;
-                    case 'twitter':
-                        window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(title), '_blank');
-                        break;
-                    case 'wechat':
-                        alert('<?php echo esc_js( __( 'Please scan QR code to share on WeChat', 'mbti-test-plugin' ) ); ?>');
-                        break;
-                }
-            });
-        });
-    })(jQuery);
-    </script>
+
     
     <style>
     .mbti-test-container {
