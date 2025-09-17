@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- 背景渐变 -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3a6cf6" />
+      <stop offset="100%" stop-color="#2dd7ff" />
+    </linearGradient>
+    <!-- 内部图形渐变 -->
+    <linearGradient id="innerGradient" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.2)" />
+      <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 主圆形背景 -->
+  <circle cx="100" cy="100" r="85" fill="url(#bgGradient)" />
+  
+  <!-- 装饰性圆环 -->
+  <circle cx="100" cy="100" r="75" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
+  <circle cx="100" cy="100" r="65" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+  
+  <!-- 四个代表MBTI维度的符号 -->
+  <!-- 外倾(E)/内倾(I) -->
+  <path d="M100 40 L120 60 L100 80 L80 60 Z" fill="url(#innerGradient)" />
+  <circle cx="100" cy="60" r="8" fill="rgba(255,255,255,0.8)" />
+  
+  <!-- 感觉(S)/直觉(N) -->
+  <path d="M140 100 L120 80 L100 100 L120 120 Z" fill="url(#innerGradient)" />
+  <path d="M133 100 L120 100 L120 87 L110 93 L115 82 L120 90 L130 85 Z" fill="rgba(255,255,255,0.8)" />
+  
+  <!-- 思维(T)/情感(F) -->
+  <path d="M100 160 L120 140 L100 120 L80 140 Z" fill="url(#innerGradient)" />
+  <path d="M100 145 L115 145 L115 135 L105 135 L105 125 L95 130 L100 140 Z" fill="rgba(255,255,255,0.8)" />
+  
+  <!-- 判断(J)/感知(P) -->
+  <path d="M60 100 L80 80 L100 100 L80 120 Z" fill="url(#innerGradient)" />
+  <path d="M67 100 L80 100 L80 113 L90 107 L85 118 L80 110 L70 115 Z" fill="rgba(255,255,255,0.8)" />
+  
+  <!-- 中心标志 -->
+  <circle cx="100" cy="100" r="25" fill="rgba(0,0,0,0.2)" />
+  <text x="100" y="110" font-family="Arial, sans-serif" font-weight="bold" font-size="18" text-anchor="middle" fill="white">MBTI</text>
+</svg>
