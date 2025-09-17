@@ -1,86 +1,139 @@
-MBTI性格测试WordPress插件
+=== MBTI Personality Test ===
+Contributors: pfinalclub
+Donate link: https://member.friday-go.icu
+Tags: mbti, personality, test, psychology, assessment
+Requires at least: 5.0
+Tested up to: 6.4
+Requires PHP: 7.4
+Stable tag: 1.0.0
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-一个功能完整的MBTI性格测试WordPress插件，帮助用户了解自己的性格类型。本插件支持基础版测试功能，可通过短代码轻松嵌入到任何页面或文章中。
+A comprehensive MBTI personality test plugin for WordPress with modern interface and multilingual support.
 
+== Description ==
 
-插件特性
----------
+The MBTI Personality Test plugin provides a complete Myers-Briggs Type Indicator assessment tool for your WordPress website. Users can discover their personality type through a scientifically-based questionnaire covering all four MBTI dimensions: Extraversion/Introversion, Sensing/Intuition, Thinking/Feeling, and Judging/Perceiving.
 
-- 基础版MBTI测试：包含16道核心题目，覆盖EI/SN/TF/JP四个维度
-- 实时进度显示：动态展示测试完成进度
-- 自动题目切换：回答完一个问题后自动跳转到下一题
-- 直观的结果展示：自动计算并显示MBTI类型及性格描述
-- 社交媒体分享：支持将测试结果分享到主流社交平台
-- 用户友好界面：清晰的答题流程和响应式设计
+= Key Features =
 
+* **Complete MBTI Assessment**: 16 carefully crafted questions covering all four personality dimensions
+* **Modern Interface**: Responsive design with smooth animations and progress tracking
+* **Auto-progression**: Automatically advances to the next question after selection
+* **Instant Results**: Real-time calculation and display of personality type with detailed descriptions
+* **Multilingual Support**: Full internationalization with English and Chinese translations
+* **Social Sharing**: Built-in sharing options for Facebook, Twitter, and WeChat
+* **Validation System**: Smart validation with user-friendly warnings for incomplete tests
+* **Admin Dashboard**: Complete backend management with settings and question bank management
 
-安装方法
----------
+= Supported Languages =
 
-1. 下载插件的ZIP文件
-2. 在WordPress后台导航到"插件" -> "添加新插件" -> "上传插件"
-3. 选择下载的ZIP文件并点击"立即安装"
-4. 安装完成后，点击"激活插件"
+* English
+* Chinese (Simplified)
 
+= MBTI Personality Types =
 
-使用方法
----------
+The plugin supports all 16 MBTI personality types:
+* **Analysts**: INTJ, INTP, ENTJ, ENTP
+* **Diplomats**: INFJ, INFP, ENFJ, ENFP
+* **Sentinels**: ISTJ, ISFJ, ESTJ, ESFJ
+* **Explorers**: ISTP, ISFP, ESTP, ESFP
 
-1. 在WordPress后台导航到"MBTI测试"菜单，配置插件选项
-2. 在任意页面或文章中使用短代码[mbti_test]嵌入测试
-3. 可通过短代码参数自定义测试显示选项
+== Installation ==
 
+1. Upload the plugin files to the `/wp-content/plugins/mbti-test-plugin` directory, or install the plugin through the WordPress plugins screen directly.
+2. Activate the plugin through the 'Plugins' screen in WordPress.
+3. Use the MBTI Test menu item in your WordPress admin to configure the plugin settings.
+4. Add the shortcode `[mbti_test]` to any page or post where you want the test to appear.
 
-短代码参数
------------
+== Frequently Asked Questions ==
 
-[mbti_test type="basic" show_progress="true" show_share="true"]
+= How do I display the MBTI test on my website? =
 
-- type: 测试类型，当前版本仅支持basic（基础版）
-- show_progress: 是否显示进度条，可选值为true或false，默认为true
-- show_share: 是否显示分享按钮，可选值为true或false，默认为true
+Simply add the shortcode `[mbti_test]` to any page, post, or widget where you want the test to appear.
 
+= Can I customize the test appearance? =
 
-管理功能
----------
+Yes, the plugin includes several shortcode parameters:
+* `show_progress="true/false"` - Show or hide the progress bar
+* `show_share="true/false"` - Show or hide social sharing buttons
 
-插件提供了完整的后台管理功能：
+Example: `[mbti_test show_progress="true" show_share="false"]`
 
-- 仪表盘：查看插件基本信息和统计数据
-- 设置：配置题目顺序、广告显示等选项
-- 题库管理：查看、添加、编辑和删除测试题目
+= Is the test scientifically accurate? =
 
+The test is based on the Myers-Briggs Type Indicator framework and includes questions designed to assess the four key personality dimensions. However, for professional psychological assessment, we recommend consulting with a qualified psychologist.
 
-插件架构
----------
+= Does the plugin store user data? =
 
-- 主插件文件：mbti-test-plugin.php - 包含插件核心功能和初始化代码
-- 管理功能：admin/mbti-admin.php - 处理后台管理界面和功能
-- 前端功能：public/mbti-public.php - 处理前端测试显示和交互逻辑
-- 测试数据：data/basic_questions.json - 存储测试题目和结果描述
+No, the plugin does not store any personal user data. Test results are generated and displayed in real-time without being saved to the database.
 
+= Can I add custom questions? =
 
-开发者注意事项
---------------
+Yes, administrators can add, edit, and delete questions through the WordPress admin panel under the MBTI Test menu.
 
-1. 插件使用JSON文件存储题目数据，如需扩展可考虑使用数据库存储
-2. 所有CSS样式和JavaScript代码都直接嵌入在PHP文件中，便于部署
-3. 插件支持多语言，可在languages目录下添加翻译文件
+= Is the plugin mobile-friendly? =
 
+Absolutely! The plugin features a fully responsive design that works perfectly on all devices, including smartphones and tablets.
 
-浏览器兼容性
--------------
+== Screenshots ==
 
-本插件兼容所有现代浏览器，包括Chrome、Firefox、Safari和Edge。对于IE11及以下版本可能存在部分兼容性问题。
+1. Modern test interface with progress tracking
+2. Question display with custom radio button styling
+3. Instant results with personality type description
+4. Admin dashboard with plugin statistics
+5. Question management interface
+6. Plugin settings page
 
+== Changelog ==
 
-隐私说明
----------
+= 1.0.0 =
+* Initial release
+* Complete MBTI personality test with 16 questions
+* Modern responsive interface design
+* Multilingual support (English/Chinese)
+* Auto-progression functionality
+* Validation system with user-friendly warnings
+* Social sharing integration
+* Admin dashboard and question management
+* WordPress coding standards compliance
 
-本插件不收集或存储用户的个人信息，测试结果仅在用户浏览器中临时生成和显示。
+== Upgrade Notice ==
 
+= 1.0.0 =
+Initial release of the MBTI Personality Test plugin.
 
-版本历史
----------
+== Technical Details ==
 
-- 1.0.0: 初始版本，包含基础测试功能和管理界面
+= System Requirements =
+* WordPress 5.0 or higher
+* PHP 7.4 or higher
+* Modern web browser with JavaScript enabled
+
+= File Structure =
+* `mbti-test-plugin.php` - Main plugin file
+* `admin/` - Backend administration files
+* `public/` - Frontend display files
+* `assets/` - CSS and JavaScript files
+* `data/` - Question bank and type descriptions
+* `languages/` - Translation files
+
+= Browser Compatibility =
+* Chrome 60+
+* Firefox 55+
+* Safari 12+
+* Edge 79+
+
+== Privacy Policy ==
+
+This plugin does not collect, store, or transmit any personal user data. All test processing is done client-side in the user's browser, and no results are saved to the server or database.
+
+== Support ==
+
+For support, feature requests, or bug reports, please visit our support page at https://member.friday-go.icu
+
+== Credits ==
+
+Developed by PFinalClub
+Based on the Myers-Briggs Type Indicator framework
+Icons and design elements are original creations
